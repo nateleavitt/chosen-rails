@@ -34,6 +34,8 @@ class AbstractChosen
     @include_group_label_in_selected = @options.include_group_label_in_selected || false
     @max_shown_results = @options.max_shown_results || Number.POSITIVE_INFINITY
     @case_sensitive_search = @options.case_sensitive_search || false
+    @edit_choice = @options.edit_choice
+    @edit_result = @options.edit_result
 
   set_default_text: ->
     if @form_field.getAttribute("data-placeholder")
@@ -108,6 +110,7 @@ class AbstractChosen
     option_el.setAttribute("data-option-array-index", option.array_index)
     option_el.innerHTML = option.search_text
     option_el.title = option.title if option.title
+    option_el = @edit_result(option_el, option) if @edit_result
 
     this.outerHTML(option_el)
 
